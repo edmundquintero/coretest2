@@ -1,0 +1,14 @@
+#!/bin/bash
+installChildPackages () {
+    local current_dir=$(pwd)
+    find . -name package.json  | grep -v node_modules | while read line; do
+        local sub_dir=$(dirname "${line}");
+        if [ $sub_dir != "." ]; then
+            cd $sub_dir
+            npm install
+            cd $current_dir
+        fi
+    done
+}
+
+installChildPackages
